@@ -1,0 +1,107 @@
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router'
+import PropTypes from 'prop-types';
+import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { logoutAction } from '../reducers/user';
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+
+const AppLayout = ( { children } ) => {
+    const dispatch = useDispatch();
+    const { isLoggedIn, user } = useSelector(state => state.user);
+    const router = useRouter()
+    const onLogout = () => {
+        dispatch(logoutAction);
+    };
+
+    let menukey = 0, selectkey = 0;
+    const sidebarSetting = () => {
+        switch (router.pathname) {
+            case '/common/notice':
+                menukey = 'sub1',
+                selectkey = '1'
+                return;
+            case '/common/guitar':
+                menukey = 'sub1',
+                selectkey = '2'
+                return;
+        }
+    }
+    return (
+        <div>
+            {sidebarSetting()}
+            <Layout style={{ height: '100vh', borderRight: 0 }}>
+                <Header className="header">
+                    <div className="logo" />
+                    <Menu theme="dark" mode="horizontal"  >
+                        <Link href="/">
+                            <a><img 
+                                width='100px'
+                                src="https://3.bp.blogspot.com/-z5VTy2Qxrkw/V_IKiYtuG7I/AAAAAAAAAMM/fsiIok7_4f4zcjL4g8Zw8zftx_Mi4FKkQCLcB/s1600/mongodb-crud-operations1.png"/></a>
+                        </Link>
+                        { isLoggedIn 
+                        ? <>
+                            <Menu.Item key="1" style = {{ float:'right' }} onClick={onLogout}>로그아웃</Menu.Item>
+                            <Menu.Item key="2" style = {{ float:'right' }}><Link href="/profile"><a>{user.id} 님의 프로필</a></Link></Menu.Item>
+                        </>
+                        : <>
+                            <Menu.Item key="1" style = {{ float:'right' }}><Link href="/signup"><a>회원가입</a></Link></Menu.Item>
+                            <Menu.Item key="2" style = {{ float:'right' }}><Link href="/login"><a>로그인</a></Link></Menu.Item>
+                        </>
+                        }
+                    </Menu>
+                </Header>
+                <Layout>
+                    <Sider width={200} className="site-layout-background">
+                        <Menu
+                            mode="inline"
+                            style={{ height: '100%', borderRight: 0 }}
+                            defaultSelectedKeys={[selectkey]}
+                            defaultOpenKeys={[menukey]}
+                        >
+                        <SubMenu key="sub1" icon={<UserOutlined />} title="공지사항">
+                            <Menu.Item key="1"><Link href="/common/notice"><a>공지</a></Link></Menu.Item>
+                            <Menu.Item key="2"><Link href="/common/guitar"><a>기타</a></Link></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub2" icon={<NotificationOutlined />} title="갤러리">
+                            <Menu.Item key="3">리그오브레전드</Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<LaptopOutlined />} title="프로그래밍">
+                            <Menu.Item key="4">자바스크립트</Menu.Item>
+                        </SubMenu>
+                        </Menu>
+                    </Sider>
+                    <Layout style={{ padding: '0 24px 24px' }}>
+                        <Breadcrumb style={{ margin: '16px 0' }}>
+                            <Breadcrumb.Item>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item>List</Breadcrumb.Item>
+                            <Breadcrumb.Item>App</Breadcrumb.Item>
+                        </Breadcrumb>
+                        <Content
+                            className="site-layout-background"
+                            style={{
+                                padding: 24,
+                                margin: 0,
+                                minHeight: 280,
+                            }}
+                            >
+                            <Row>
+                                <Col span={21}>{children}</Col>
+                                <Col span={3}>실시간 채팅</Col>
+                            </Row>
+                        </Content>
+                    </Layout>
+                </Layout>
+            </Layout>
+        </div>
+    );
+};
+
+AppLayout.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+export default AppLayout;
