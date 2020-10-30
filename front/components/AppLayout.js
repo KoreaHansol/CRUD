@@ -26,7 +26,7 @@ const AppLayout = ( { children } ) => {
                 return;
             case '/common/guitar':
                 menukey = 'sub1',
-                selectkey = '2'
+                selectkey = '2' 
                 return;
         }
     }
