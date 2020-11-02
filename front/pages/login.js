@@ -7,23 +7,23 @@ import useInput from '../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../reducers/user';
 const Login = () => {
-    const [id, setid] = useInput('');
+    const [userid, setid] = useInput('');
     const [password, setpassword] = useInput('');
     const dispatch = useDispatch();
     const router = useRouter()
-    const { isLoggedIn, user } = useSelector(state => state.user);
+    const { user } = useSelector(state => state.user);
     useEffect(() => {
-        if (isLoggedIn) {
-          router.push('/');
+        if (user && user.userid) {
+          router.replace('/');
         }
       }, [user && user.id]);
     const onSubmit = useCallback(() => {
         dispatch(loginAction({
-            id,
-            password,
+          userid,
+          password,
         }));
-    }, [id, password])
-
+    }, [userid, password])
+    
   return (
     <AppLayout>
          <Head>
@@ -33,7 +33,7 @@ const Login = () => {
             <div>
                 <label htmlFor="user-id">아이디</label>
                 <br />
-                <Input name="user-id" value={id} required onChange={setid} />
+                <Input name="user-id" value={userid} required onChange={setid} />
             </div>
             <div>
                 <label htmlFor="user-password">비밀번호</label>

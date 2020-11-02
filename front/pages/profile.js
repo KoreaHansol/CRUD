@@ -5,13 +5,13 @@ import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
 
 const Profile = () => {
-  const { isLoggedIn } = useSelector(state => state.user);
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!user) {
       Router.replace('/');
     }
-  }, [isLoggedIn])
+  }, [user])
 
   return (
     <AppLayout>

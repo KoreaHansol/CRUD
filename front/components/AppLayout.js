@@ -42,10 +42,10 @@ const AppLayout = ( { children } ) => {
                                 width='100px'
                                 src="https://3.bp.blogspot.com/-z5VTy2Qxrkw/V_IKiYtuG7I/AAAAAAAAAMM/fsiIok7_4f4zcjL4g8Zw8zftx_Mi4FKkQCLcB/s1600/mongodb-crud-operations1.png"/></a>
                         </Link>
-                        { isLoggedIn 
+                        { user 
                         ? <>
                             <Menu.Item key="1" style = {{ float:'right' }} onClick={onLogout}>로그아웃</Menu.Item>
-                            <Menu.Item key="2" style = {{ float:'right' }}><Link href="/profile"><a>{user.id} 님의 프로필</a></Link></Menu.Item>
+                            <Menu.Item key="2" style = {{ float:'right' }}><Link href="/profile"><a>{user.userid} 님의 프로필</a></Link></Menu.Item>
                         </>
                         : <>
                             <Menu.Item key="1" style = {{ float:'right' }}><Link href="/signup"><a>회원가입</a></Link></Menu.Item>
