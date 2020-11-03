@@ -67,7 +67,7 @@ const AppLayout = ( { children } ) => {
                             <Menu.Item key="2"><Link href="/common/guitar"><a>기타</a></Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub2" icon={<NotificationOutlined />} title="갤러리">
-                            <Menu.Item key="3">리그오브레전드</Menu.Item>
+                            <Menu.Item key="3"><Link href="/gallery/leagueoflegend"><a>리그오브레전드</a></Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub3" icon={<LaptopOutlined />} title="프로그래밍">
                             <Menu.Item key="4">자바스크립트</Menu.Item>

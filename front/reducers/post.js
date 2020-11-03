@@ -2,27 +2,41 @@ export const initialState = {
     mainPosts: [{
       id: 1,
       User: {
-        id: 1,
-        nickname: '제로초',
+        id: 'hskimaa1',
+        nickname: '김한솔1',
       },
-      content: '첫 번째 게시글',
-      Images: [{
-        src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-      }, {
-        src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-      }, {
-        src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-      }],
+      content: '김한솔게시글1',
+      Images: [{},],
       Comments: [{
         User: {
-          nickname: 'nero',
+          nickname: '댓글1',
         },
-        content: '우와 개정판이 나왔군요~',
+        content: '댓글컨텐츠1',
       }, {
         User: {
-          nickname: 'hero',
+          nickname: '댓글2',
         },
-        content: '얼른 사고싶어요~',
+        content: '댓글컨텐츠2',
+      }]
+    },
+    {
+      id: 2,
+      User: {
+        id: 'hskimaa1',
+        nickname: '김한솔2',
+      },
+      content: '김한솔게시글2',
+      Images: [{},],
+      Comments: [{
+        User: {
+          nickname: '댓글1',
+        },
+        content: '댓글컨텐츠1',
+      }, {
+        User: {
+          nickname: '댓글2',
+        },
+        content: '댓글컨텐츠2',
       }]
     }],
     imagePaths: [],
@@ -37,10 +51,10 @@ export const initialState = {
   
   const dummyPost = {
     id: 2,
-    content: '더미데이터입니다.',
+    content: '1',
     User: {
       id: 1,
-      nickname: '제로초',
+      nickname: '1',
     },
     Images: [],
     Comments: [],
