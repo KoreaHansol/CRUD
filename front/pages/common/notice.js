@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react';
 import AppLayout from '../../components/AppLayout';
 import { useSelector, useDispatch } from 'react-redux';
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 import Link from 'next/link';
-import { addPost } from '../../reducers/post';
+import { addPost, loadPostAction } from '../../reducers/post';
 const Notice = () => {
   const dispatch = useDispatch();
+  const { mainPosts } = useSelector(state => state.post);
   useEffect(() => {
-    dispatch(addPost);
+    dispatch(loadPostAction({
+      category: 'notice'
+    }));
   }, []);
   const columns = [
     {
       title: '번호',
       width: 100,
-      dataIndex: 'index',
-      key: 'index',
+      dataIndex: 'id',
+      key: 'id',
     },
     { 
       title: '제목', 
@@ -25,14 +28,14 @@ const Notice = () => {
     {
       title: '이름',
       width: 200,
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'UserId',
+      key: 'UserId',
     },
     {
       title: '작성일',
       width: 200,
-      dataIndex: 'update',
-      key: 'update',
+      dataIndex: 'updatedAt',
+      key: 'updatedAt',
     },
     {
       title: '조회',
@@ -48,86 +51,14 @@ const Notice = () => {
     },
   ];
   
-  const dummydata = [
-    {
-      key: '1',
-      name: 'John Brown',
-      title: 32,
-      address: 'New York Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      title: 40,
-      address: 'London Park',
-    },
-    {
-      key: '1',
-      name: 'John Brown',
-      title: 32,
-      address: 'New York Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      title: 40,
-      address: 'London Park',
-    },
-    {
-      key: '1',
-      name: 'John Brown',
-      title: 32,
-      address: 'New York Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      title: 40,
-      address: 'London Park',
-    },
-    {
-      key: '1',
-      name: 'John Brown',
-      title: 32,
-      address: 'New York Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      title: 40,
-      address: 'London Park',
-    },
-    {
-      key: '1',
-      name: 'John Brown',
-      title: 32,
-      address: 'New York Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      title: 40,
-      address: 'London Park',
-    },
-    {
-      key: '1',
-      name: 'John Brown',
-      title: 32,
-      address: 'New York Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      title: 40,
-      address: 'London Park',
-    },
-  ];
   return (
     <AppLayout>
-        Hello Notice
-        <Table columns={columns} dataSource={dummydata} scroll={{ x: 1300 }} />
+        <Table columns={columns} dataSource={mainPosts} scroll={{ x: 1300 }} />
+        <Button><Link href="/common/notice/add"><a>글쓰기</a></Link></Button>
     </AppLayout>
   );
 };
+
+
 
 export default Notice;

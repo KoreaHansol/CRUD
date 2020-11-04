@@ -1,53 +1,90 @@
+import axios from 'axios'
+axios.defaults.baseURL = "http://localhost:3061"
+axios.defaults.withCredentials = true;
 export const initialState = {
-    mainPosts: [{
-      id: 1,
-      User: {
-        id: 'hskimaa1',
-        nickname: '김한솔1',
-      },
-      content: '김한솔게시글1',
-      Images: [{},],
-      Comments: [{
-        User: {
-          nickname: '댓글1',
-        },
-        content: '댓글컨텐츠1',
-      }, {
-        User: {
-          nickname: '댓글2',
-        },
-        content: '댓글컨텐츠2',
-      }]
-    },
-    {
-      id: 2,
-      User: {
-        id: 'hskimaa1',
-        nickname: '김한솔2',
-      },
-      content: '김한솔게시글2',
-      Images: [{},],
-      Comments: [{
-        User: {
-          nickname: '댓글1',
-        },
-        content: '댓글컨텐츠1',
-      }, {
-        User: {
-          nickname: '댓글2',
-        },
-        content: '댓글컨텐츠2',
-      }]
-    }],
-    imagePaths: [],
-    postAdded: false,
-  };
+
+};
   
   const ADD_POST = 'ADD_POST';
+  const POST_LOAD = 'POST_LOAD';
+  const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+  const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+  const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
   
-  export const addPost = {
-    type: ADD_POST,
+  const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
+  const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
+  const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
+
+  export const addPostRequestAction = (data) => {
+    return {
+      type: ADD_POST_REQUEST,
+      data,
+    };
   };
+  export const addPostSuccessAction = (data) => {
+    return {
+      type: ADD_POST_SUCCESS,
+      data,
+    };
+  };
+  export const addPostFailureAction = (data) => {
+    return {
+      type: ADD_POST_FAILURE,
+      data,
+    };
+  };
+
+  export const addPostAction = (data) => {
+    return (dispatch) => {
+      dispatch(addPostRequestAction());
+      axios.post('/post/add', data)
+      .then(() => {
+        dispatch(addPostSuccessAction(data));
+      })
+      .catch(() => {
+        dispatch(addPostFailureAction())
+      })
+    }
+  };
+
+
+  export const loadPostRequestAction = (data) => {
+    return {
+      type: LOAD_POST_REQUEST,
+      data,
+    };
+  };
+  export const loadPostSuccessAction = (data) => {
+    return {
+      type: LOAD_POST_SUCCESS,
+      data,
+    };
+  };
+  export const loadPostFailureAction = (data) => {
+    return {
+      type: LOAD_POST_FAILURE,
+      data,
+    };
+  };
+  
+  export const loadPostAction = (data) => {
+    console.log(data)
+    return (dispatch) => {
+      dispatch(loadPostRequestAction());
+      axios.post('/post', data)
+      .then((posts) => {
+        console.log(posts.data)
+        dispatch(loadPostSuccessAction(posts.data));
+      })
+      .catch(() => {
+        dispatch(loadPostRequestAction())
+      })
+    }
+  };
+
+  export const postLoaded = {
+    type: POST_LOAD,
+  }
   
   const dummyPost = {
     id: 2,
@@ -62,6 +99,20 @@ export const initialState = {
   
   export default (state = initialState, action) => {
     switch (action.type) {
+      case LOAD_POST_SUCCESS: {
+        return {
+          ...state,
+          mainPosts: action.data,
+          postAdded: true,
+        };
+      }
+      case ADD_POST_SUCCESS: {
+        return {
+          ...state,
+          mainPosts: [action.data, ...state.mainPosts],
+          postAdded: true,
+        };
+      }
       case ADD_POST: {
         return {
           ...state,

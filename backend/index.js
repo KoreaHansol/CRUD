@@ -5,6 +5,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser')
 const passportConfig = require('./passport');
 const userRouter = require('./routes/user');
+const postRouter = require('./routes/post')
 const passport = require('passport');
 const app = express();
 const PORT = 3061;
@@ -31,7 +32,7 @@ app.use(cors({
     credentials: true,
 }));
 app.use('/user', userRouter);
-
+app.use('/post', postRouter);
 app.listen(PORT, () => {
     console.log("서버 실행중")
 })

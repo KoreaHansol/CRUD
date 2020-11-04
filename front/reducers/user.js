@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.baseURL = "http://localhost:3061"
+axios.defaults.withCredentials = true;
 const dummyUser = {
   id: 1,
   userid:'hskimaa',
