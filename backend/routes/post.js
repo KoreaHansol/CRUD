@@ -5,6 +5,19 @@ const { User, Post } = require('../models');
 
 const router = express.Router();
 
+router.get('/:postId', async (req, res) => {
+    console.log("idididid")
+    try {
+        const post = await Post.findOne({
+            where: {id: req.params.postId}
+        })
+        res.status(200).json(post)
+    } catch(err) {
+        console.error(err);
+        next(err);
+    }
+})
+
 router.post('/', async(req, res, next) => {
     console.log("index",req.body)
     try {
@@ -22,6 +35,7 @@ router.post('/', async(req, res, next) => {
 
 router.post('/add', async(req, res, next) => {
     try {
+        console.log(req.body)
         const user = await User.findOne({
             where : { userid: req.body.userid }
         })
@@ -30,6 +44,7 @@ router.post('/add', async(req, res, next) => {
             content: req.body.content.text,
             category: req.body.content.category,
             UserId: user.id,
+            nickname: req.body.nickname
         })
        
     } catch (err) {
@@ -38,6 +53,5 @@ router.post('/add', async(req, res, next) => {
     }
     
 })
-
 
 module.exports = router; 

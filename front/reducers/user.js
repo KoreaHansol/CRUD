@@ -87,8 +87,8 @@ export const loginAction = (data) => {
   return (dispatch) => {
     dispatch(LoginRequestAction());
     axios.post('/user/login', data)
-    .then(() => {
-      dispatch(LoginSuccessAction(data));
+    .then((user) => {
+      dispatch(LoginSuccessAction(user));
     })
     .catch(() => {
       dispatch(LoginFailureAction())

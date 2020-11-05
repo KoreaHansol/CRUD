@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         category: {
             type: DataTypes.TEXT,
             allowNull: false,
+        },
+        nickname: {
+            type: DataTypes.TEXT,
+            allowNull: false,
         }
     }, {
         charset: 'utf8',

@@ -13,10 +13,10 @@ const Login = () => {
     const router = useRouter()
     const { user } = useSelector(state => state.user);
     useEffect(() => {
-        if (user && user.userid) {
+        if (user && user.data) {
           router.replace('/');
         }
-      }, [user && user.id]);
+      }, [user && user.data]);
     const onSubmit = useCallback(() => {
         dispatch(loginAction({
           userid,

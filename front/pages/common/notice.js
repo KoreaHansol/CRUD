@@ -18,12 +18,12 @@ const Notice = () => {
       width: 100,
       dataIndex: 'id',
       key: 'id',
+      render: (text) => mainPosts.length - (text - 1),
     },
     { 
       title: '제목', 
-      dataIndex: 'title', 
-      key: '1' ,
-      render: (text) => <Link href=""><a>{text}</a></Link>,
+      key: 'title' ,
+      render: (text) => <Link href={`/common/notice/${text.id}`}><a>{text.title}</a></Link>,
     },
     {
       title: '이름',

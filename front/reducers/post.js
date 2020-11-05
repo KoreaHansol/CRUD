@@ -15,6 +15,10 @@ export const initialState = {
   const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
   const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
 
+  const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
+  const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
+  const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
+
   export const addPostRequestAction = (data) => {
     return {
       type: ADD_POST_REQUEST,
@@ -82,6 +86,44 @@ export const initialState = {
     }
   };
 
+
+  export const loadsinglePostRequestAction = (data) => {
+    return {
+      type: LOAD_SINGLE_POST_REQUEST,
+      data,
+    };
+  };
+  export const loadsinglePostSuccessAction = (data) => {
+    return {
+      type: LOAD_SINGLE_POST_SUCCESS,
+      data,
+    };
+  };
+  export const loadsinglePostFailureAction = (data) => {
+    return {
+      type: LOAD_SINGLE_POST_FAILURE,
+      data,
+    };
+  };
+  
+  export const loadsinglePostAction = (data) => {
+    console.log(data)
+    return (dispatch) => {
+      dispatch(loadsinglePostRequestAction());
+      axios.get(`/post/${data}`)
+      .then((posts) => {
+        console.log(posts)
+        dispatch(loadsinglePostSuccessAction(posts));
+      })
+      .catch(() => {
+        dispatch(loadsinglePostFailureAction())
+      })
+    }
+  };
+
+
+
+
   export const postLoaded = {
     type: POST_LOAD,
   }
@@ -103,7 +145,6 @@ export const initialState = {
         return {
           ...state,
           mainPosts: action.data,
-          postAdded: true,
         };
       }
       case ADD_POST_SUCCESS: {
@@ -113,11 +154,10 @@ export const initialState = {
           postAdded: true,
         };
       }
-      case ADD_POST: {
+      case LOAD_SINGLE_POST_SUCCESS: {
         return {
           ...state,
-          mainPosts: [dummyPost, ...state.mainPosts],
-          postAdded: true,
+          singlePost: action.data,
         };
       }
       default: {
