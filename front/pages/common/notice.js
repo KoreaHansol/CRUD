@@ -28,8 +28,8 @@ const Notice = () => {
     {
       title: '이름',
       width: 200,
-      dataIndex: 'UserId',
-      key: 'UserId',
+      dataIndex: 'nickname',
+      key: 'nickname',
     },
     {
       title: '작성일',

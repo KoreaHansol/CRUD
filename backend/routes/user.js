@@ -79,7 +79,7 @@ router.post('/nickchange', async (req, res, next) => {
                 where: { id: req.body.user.data.id } 
             }
         );
-        res.send("asd asd");
+        res.status(200).send("changeNick");
     } catch (err) {
         console.error(err);
         next(err);
@@ -94,7 +94,7 @@ router.get('/', async (req, res) => {
                 where: { id: req.user.id },
                 include: [{
                     model: Post,
-                    attributes: ['id'],
+                    attributes: ['id', 'title'],
                 },]
             });
             res.status(200).json(user);

@@ -48,17 +48,11 @@ const Profile = () => {
         {err && <div style={{ color : 'red' }}>닉네임을 5글자 이상으로 설정해주세요</div>}
       </Descriptions.Item>
         <Descriptions.Item label="나의 게시글" span={3}>
-          Data disk type: MongoDB
-          <br />
-          Database version: 3.4
-          <br />
-          Package: dds.mongo.mid
-          <br />
-          Storage space: 10 GB
-          <br />
-          Replication factor: 3
-          <br />
-          Region: East China 1<br />
+          {user&&user.data && user.data.Posts.map((v, i)=> {
+            return (
+              <div>{(i+1)+'번째 게시글 : ' + v.title}</div>
+            )
+          })}
         </Descriptions.Item>
         <Descriptions.Item label="나의 댓글" span={3}>
           Data disk type: MongoDB
