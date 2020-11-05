@@ -69,6 +69,23 @@ router.post('/logout', (req, res) => {
     res.status(200).send('logoutSuccess')
 })
 
+router.post('/nickchange', async (req, res, next) => {
+    try {
+        await User.update(
+            { 
+                nickname: req.body.nickname 
+            },
+            { 
+                where: { id: req.body.user.data.id } 
+            }
+        );
+        res.send("asd asd");
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+})
+
 router.get('/', async (req, res) => {
     try {
         if(req.user)

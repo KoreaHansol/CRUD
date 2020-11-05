@@ -35,6 +35,47 @@ export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
+export const NICK_CHANGE_REQUEST = 'NICK_CHANGE_REQUEST';
+export const NICK_CHANGE_SUCCESS = 'NICK_CHANGE_SUCCESS';
+export const NICK_CHANGE_FAILURE = 'NICK_CHANGE_FAILURE';
+
+
+
+export const nicknameChangeAction = (data) => {
+  return (dispatch) => {
+    console.log(data)
+    dispatch(nicknameChangeRequestAction());
+    axios.post('/user/nickchange', data)
+    .then(() => {
+      dispatch(nicknameChangeSuccessAction(data.nickname));
+      dispatch(loadUserAction());
+    })
+    .catch(() => {
+      dispatch(nicknameChangeFailureAction())
+    })
+  }
+}
+
+export const nicknameChangeRequestAction = (data) => {
+  return {
+    type: NICK_CHANGE_REQUEST,
+    data,
+  };
+};
+export const nicknameChangeSuccessAction = (data) => {
+  return {
+    type: NICK_CHANGE_SUCCESS,
+    data,
+  };
+};
+export const nicknameChangeFailureAction = (data) => {
+  return {
+    type: NICK_CHANGE_FAILURE,
+    data,
+  };
+};
+
+
 
 export const signUpAction = (data) => {
   return (dispatch) => {
@@ -169,6 +210,18 @@ export const logoutAction = (data) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case NICK_CHANGE_SUCCESS : {
+      return {
+        ...state,
+        user: {
+          ...state,
+          data: {
+            ...state,
+            nickname: action.data,
+          }
+        },
+      }
+    }
     case LOAD_USER_SUCCESS: {
       return {
         ...state,

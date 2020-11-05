@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       allowNull: false, // 필수
     },
+    
+  },{
+    charset: 'utf8',
+    collate: 'utf8_general_ci', // 한글 저장
   });
   User.associate = function (db) {
     db.User.hasMany(db.Post)
