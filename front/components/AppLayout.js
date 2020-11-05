@@ -21,8 +21,14 @@ const AppLayout = ( { children } ) => {
     },[])
     let menukey = 0, selectkey = 0;
     const sidebarSetting = () => {
+
+        console.log(router.pathname)
         switch (router.pathname) {
             case '/common/notice':
+                menukey = 'sub1',
+                selectkey = '1'
+                return;
+            case '/common/notice/[id]':
                 menukey = 'sub1',
                 selectkey = '1'
                 return;
