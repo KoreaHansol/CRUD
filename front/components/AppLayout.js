@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import PropTypes from 'prop-types';
 import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { logoutAction } from '../reducers/user';
+import { loadUserAction, logoutAction } from '../reducers/user';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -14,9 +14,11 @@ const AppLayout = ( { children } ) => {
     const { isLoggedIn, user } = useSelector(state => state.user);
     const router = useRouter()
     const onLogout = () => {
-        dispatch(logoutAction);
+        dispatch(logoutAction());
     };
-
+    useEffect(() => {
+        dispatch(loadUserAction())
+    },[])
     let menukey = 0, selectkey = 0;
     const sidebarSetting = () => {
         switch (router.pathname) {
@@ -42,10 +44,10 @@ const AppLayout = ( { children } ) => {
                                 width='100px'
                                 src="https://3.bp.blogspot.com/-z5VTy2Qxrkw/V_IKiYtuG7I/AAAAAAAAAMM/fsiIok7_4f4zcjL4g8Zw8zftx_Mi4FKkQCLcB/s1600/mongodb-crud-operations1.png"/></a>
                         </Link>
-                        { user 
+                        { user && user.data 
                         ? <>
                             <Menu.Item key="1" style = {{ float:'right' }} onClick={onLogout}>로그아웃</Menu.Item>
-                            <Menu.Item key="2" style = {{ float:'right' }}><Link href="/profile"><a>{user.userid} 님의 프로필</a></Link></Menu.Item>
+                            <Menu.Item key="2" style = {{ float:'right' }}><Link href="/profile"><a>{ user.data.nickname} 님의 프로필</a></Link></Menu.Item>
                         </>
                         : <>
                             <Menu.Item key="1" style = {{ float:'right' }}><Link href="/signup"><a>회원가입</a></Link></Menu.Item>

@@ -46,7 +46,7 @@ router.post('/add', async(req, res, next) => {
             UserId: user.id,
             nickname: req.body.nickname
         })
-       
+       return res.status(200).json(post)
     } catch (err) {
         console.error(err);
         next(err);

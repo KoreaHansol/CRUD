@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   User.associate = function (db) {
+    db.User.hasMany(db.Post)
     db.User.hasMany(db.Comment);
   };
   return User;

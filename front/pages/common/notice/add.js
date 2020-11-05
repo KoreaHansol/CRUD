@@ -31,8 +31,8 @@ const Add = () => {
                 text: values.content.text,
                 category: 'notice',
             },
-            userid: user.userid,
-            nickname: user.nickname
+            userid: user.data.userid,
+            nickname: user.data.nickname
         }));
     };
   return (

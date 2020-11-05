@@ -48,17 +48,47 @@ router.post('/login', (req, res, next) => {
                 console.log("passportErr",loginErr)
                 // return next(loginErr);
             }
-            const fullUserWithoutPassword = await User.findOne({
+            const UserInfomation = await User.findOne({
                 where: { id: user.id },
                 attributes: {
-                    nickname: ['nickname'],
                     exclude: ['password']
                 },
+                include: [{
+                    model: Post,
+                    attributes: ['id'],
+                },]
             })
-            return res.status(200).json(fullUserWithoutPassword);
+            return res.status(200).json(UserInfomation);
         })
     })(req, res, next)
 });
 
+router.post('/logout', (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.status(200).send('logoutSuccess')
+})
+
+router.get('/', async (req, res) => {
+    try {
+        if(req.user)
+        {
+            const user = await User.findOne({
+                where: { id: req.user.id },
+                include: [{
+                    model: Post,
+                    attributes: ['id'],
+                },]
+            });
+            res.status(200).json(user);
+        } else {
+            res.status(200).json(null);
+        }
+        
+    } catch(err) {
+        console.error(err);
+        next(err);
+    }
+})
 
 module.exports = router;

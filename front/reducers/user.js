@@ -27,6 +27,14 @@ export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 export const LOG_OUT = 'LOG_OUT';
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
+
+export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
+
 
 export const signUpAction = (data) => {
   return (dispatch) => {
@@ -81,7 +89,37 @@ export const LoginFailureAction = (data) => {
   };
 };
 
+export const LoadUserRequestAction = (data) => {
+  return {
+    type: LOAD_USER_REQUEST,
+    data,
+  };
+};
+export const LoadUserSuccessAction = (data) => {
+  return {
+    type: LOAD_USER_SUCCESS,
+    data,
+  };
+};
+export const LoadUserFailureAction = (data) => {
+  return {
+    type: LOAD_USER_FAILURE,
+    data,
+  };
+};
 
+export const loadUserAction = (data) => {
+  return (dispatch) => {
+    dispatch(LoadUserRequestAction());
+    axios.get('/user')
+    .then((user) => {
+      dispatch(LoadUserSuccessAction(user));
+    })
+    .catch(() => {
+      dispatch(LoadUserFailureAction())
+    })
+  }
+}
 
 export const loginAction = (data) => {
   return (dispatch) => {
@@ -96,12 +134,48 @@ export const loginAction = (data) => {
   }
 }
 
-export const logoutAction = {
-  type: LOG_OUT,
+
+export const logoutRequestAction = (data) => {
+  return {
+    type: LOG_OUT_REQUEST,
+    data,
+  };
 };
+export const logoutSuccessAction = (data) => {
+  return {
+    type: LOG_OUT_SUCCESS,
+    data,
+  };
+};
+export const logoutFailureAction = (data) => {
+  return {
+    type: LOG_OUT_FAILURE,
+    data,
+  };
+};
+
+export const logoutAction = (data) => {
+  return (dispatch) => {
+    dispatch(logoutRequestAction());
+    axios.post('/user/logout', data)
+    .then((user) => {
+      dispatch(logoutSuccessAction(user));
+    })
+    .catch(() => {
+      dispatch(logoutFailureAction())
+    })
+  }
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case LOAD_USER_SUCCESS: {
+      return {
+        ...state,
+        isloging: true,
+        user: action.data,
+      }
+    }
     case LOG_IN_REQUEST: {
       return {
         ...state,
@@ -114,7 +188,7 @@ export default (state = initialState, action) => {
         user: action.data,
       }
     }
-    case LOG_OUT: {
+    case LOG_OUT_SUCCESS: {
       return {
         ...state,
         isLoggedIn: false,
