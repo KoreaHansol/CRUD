@@ -55,17 +55,7 @@ const Profile = () => {
           }): null}
         </Descriptions.Item>
         <Descriptions.Item label="나의 댓글" span={3}>
-          Data disk type: MongoDB
-          <br />
-          Database version: 3.4
-          <br />
-          Package: dds.mongo.mid
-          <br />
-          Storage space: 10 GB
-          <br />
-          Replication factor: 3
-          <br />
-          Region: East China 1<br />
+          
         </Descriptions.Item>
       </Descriptions>
     </AppLayout>

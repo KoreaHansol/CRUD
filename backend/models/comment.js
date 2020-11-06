@@ -3,7 +3,15 @@ module.exports = (sequelize, DataTypes) => {
         content: {
             type: DataTypes.TEXT,
             allowNull: false,
-          },
+        },
+        nickname: {
+            type: DataTypes.STRING(30),
+            allowNull: false, // 필수
+        },
+        category: {
+            type: DataTypes.STRING(30),
+            allowNull: false, // 필수
+        },
     }, {
         charset: 'utf8',
         collate: 'utf8_general_ci', // 한글 저장

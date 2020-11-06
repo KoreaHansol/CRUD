@@ -24,7 +24,6 @@ const Add = () => {
     };
     const dispatch = useDispatch();
     const onFinish = values => {
-        console.log(values);
         dispatch(addPostAction({
             content: {
                 title: values.content.title,

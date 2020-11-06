@@ -19,6 +19,10 @@ export const initialState = {
   const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
   const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
 
+  const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
+  const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
+  const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
   export const addPostRequestAction = (data) => {
     return {
       type: ADD_POST_REQUEST,
@@ -72,12 +76,10 @@ export const initialState = {
   };
   
   export const loadPostAction = (data) => {
-    console.log(data)
     return (dispatch) => {
       dispatch(loadPostRequestAction());
       axios.post('/post', data)
       .then((posts) => {
-        console.log(posts.data)
         dispatch(loadPostSuccessAction(posts.data));
       })
       .catch(() => {
@@ -110,9 +112,8 @@ export const initialState = {
     console.log(data)
     return (dispatch) => {
       dispatch(loadsinglePostRequestAction());
-      axios.get(`/post/${data}`)
+      axios.get(`/post/${data.category}/${data.id}`)
       .then((posts) => {
-        console.log(posts)
         dispatch(loadsinglePostSuccessAction(posts));
       })
       .catch(() => {
@@ -120,8 +121,39 @@ export const initialState = {
       })
     }
   };
-
-
+  
+  export const addCommentRequestAction = (data) => {
+    return {
+      type: ADD_COMMENT_REQUEST,
+      data,
+    };
+  };
+  export const addCommentSuccessAction = (data) => {
+    return {
+      type: ADD_COMMENT_SUCCESS,
+      data,
+    };
+  };
+  export const addCommentFailureAction = (data) => {
+    return {
+      type: ADD_COMMENT_FAILURE,
+      data,
+    };
+  };
+  
+  export const addCommentAction = (data) => {
+    return (dispatch) => {
+      dispatch(addCommentRequestAction());
+      axios.post(`/post/${data.id}/comment`, data)
+      .then((comment) => {
+        dispatch(addCommentSuccessAction(comment.data));
+      })
+      .catch((err) => {
+        console.error(err)
+        dispatch(addCommentFailureAction())
+      })
+    }
+  };
 
 
   export const postLoaded = {
@@ -158,6 +190,17 @@ export const initialState = {
         return {
           ...state,
           singlePost: action.data,
+        };
+      }
+      case ADD_COMMENT_SUCCESS: {
+        return { //post
+          singlePost: {
+            ...state.singlePost,
+            data: {
+              ...state.singlePost.data,
+              Comments: [action.data, ...state.singlePost.data.Comments]
+            }
+          }
         };
       }
       default: {

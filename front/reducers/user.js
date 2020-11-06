@@ -43,7 +43,6 @@ export const NICK_CHANGE_FAILURE = 'NICK_CHANGE_FAILURE';
 
 export const nicknameChangeAction = (data) => {
   return (dispatch) => {
-    console.log(data)
     dispatch(nicknameChangeRequestAction());
     axios.post('/user/nickchange', data)
     .then(() => {

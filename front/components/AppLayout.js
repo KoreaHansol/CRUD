@@ -21,8 +21,6 @@ const AppLayout = ( { children } ) => {
     },[])
     let menukey = 0, selectkey = 0;
     const sidebarSetting = () => {
-
-        console.log(router.pathname)
         switch (router.pathname) {
             case '/common/notice':
                 menukey = 'sub1',
@@ -32,9 +30,13 @@ const AppLayout = ( { children } ) => {
                 menukey = 'sub1',
                 selectkey = '1'
                 return;
-            case '/common/guitar':
+            case '/common/etc':
                 menukey = 'sub1',
                 selectkey = '2' 
+                return;
+            case '/common/etc/[id]':
+                menukey = 'sub1',
+                selectkey = '2'
                 return;
         }
     }
@@ -72,7 +74,7 @@ const AppLayout = ( { children } ) => {
                         >
                         <SubMenu key="sub1" icon={<UserOutlined />} title="공지사항">
                             <Menu.Item key="1"><Link href="/common/notice"><a>공지</a></Link></Menu.Item>
-                            <Menu.Item key="2"><Link href="/common/guitar"><a>기타</a></Link></Menu.Item>
+                            <Menu.Item key="2"><Link href="/common/etc"><a>기타</a></Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub2" icon={<NotificationOutlined />} title="갤러리">
                             <Menu.Item key="3"><Link href="/gallery/leagueoflegend"><a>리그오브레전드</a></Link></Menu.Item>

@@ -39,13 +39,11 @@ router.post('/login', (req, res, next) => {
             next(err);
         }
         if(info) {
-            console.log("infoErr",info)
             return res.status(401).send(info.reason);
         }
         return req.login(user, async (loginErr) => {
            
             if(loginErr) { //패스포트에서 에러나면
-                console.log("passportErr",loginErr)
                 // return next(loginErr);
             }
             const UserInfomation = await User.findOne({
