@@ -35,12 +35,22 @@ router.get('/:category/:postId', async (req, res) => {
 })
 
 router.post('/', async(req, res, next) => {
+    var query = "SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, 'id', Post.* FROM `Posts` AS `Post` ,(SELECT @ROWNUM := 0) R WHERE `Post`.`category` = :name ORDER BY `Post`.`createdAt` DESC"
+    var values = {
+        name: req.body.category
+    }
     try {
-        const post = await Post.findAll({
-            where : { category: req.body.category },
-            order: [['createdAt', 'DESC']],
-        })
-        res.status(201).json(post);
+        const post = Post.sequelize.query(query, {replacements: values }).then(
+            function (results, metadata) {
+                var normalResults = results.map((mysqlObj, index) => {
+                    return Object.assign([], mysqlObj);
+                });
+                res.status(200).send(normalResults[0]);
+            },
+            function (err) {
+              // 쿼리 실행 에러
+            }
+        )
     } catch (err) {
         console.error(err);
         next(err);

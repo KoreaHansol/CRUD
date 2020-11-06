@@ -16,9 +16,9 @@ const etc = () => {
     {
       title: '번호',
       width: 100,
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) =>  mainPosts && mainPosts.length,
+      dataIndex: 'ROWNUM',
+      key: 'ROWNUM',
+      render: (text) =>  text,
     },
     { 
       title: '제목', 
