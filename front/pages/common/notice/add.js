@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppLayout from '../../../components/AppLayout'
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -7,11 +7,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addPostAction } from '../../../reducers/post';
 const Add = () => {
     const { user } = useSelector(state => state.user);
+    const { postAdded, postAddError } = useSelector(state => state.post);
+    const router = useRouter();
     const layout = {
         labelCol: { span: 1 },
         wrapperCol: { span: 10 },
     };
-        
+    
+    useEffect(() => {
+        if (postAdded) {
+          router.replace('/common/notice');
+          alert('등록완료');
+        }
+    }, [postAdded]);
+    useEffect(() => {
+        if (postAddError) {
+            alert(postAddError);
+        }
+    }, [postAddError]);
     const validateMessages = {
         required: '${label}은 꼭 필요합니다',
         types: {

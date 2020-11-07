@@ -134,10 +134,10 @@ export const initialState = {
       data,
     };
   };
-  export const addCommentFailureAction = (data) => {
+  export const addCommentFailureAction = (err) => {
     return {
       type: ADD_COMMENT_FAILURE,
-      data,
+      err,
     };
   };
   
@@ -150,7 +150,7 @@ export const initialState = {
       })
       .catch((err) => {
         console.error(err)
-        dispatch(addCommentFailureAction())
+        dispatch(addCommentFailureAction(err.response.data))
       })
     }
   };
@@ -177,6 +177,7 @@ export const initialState = {
         return {
           ...state,
           mainPosts: action.data,
+          postAdded: false,
         };
       }
       case ADD_POST_SUCCESS: {
@@ -184,6 +185,19 @@ export const initialState = {
           ...state,
           mainPosts: [action.data, ...state.mainPosts],
           postAdded: true,
+        };
+      }
+      case ADD_POST_REQUEST: {
+        return {
+          ...state,
+          postAdded: false,
+        };
+      }
+      case ADD_POST_FAILURE: {
+        return {
+          ...state,
+          postAdded: false,
+          postAddError: action.err
         };
       }
       case LOAD_SINGLE_POST_SUCCESS: {

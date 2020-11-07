@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import Router from 'next/router'
@@ -62,6 +62,7 @@ const SignUp = () => {
             <title>Board | 회원가입</title>
         </Head>
         <Form onFinish={onSubmit} style={{ width: '30vw' }}>
+            <Typography.Title level={2}>회원가입</Typography.Title>
             <div>
                 <label htmlFor="user-id">아이디</label>
                 <br />

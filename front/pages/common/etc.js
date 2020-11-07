@@ -7,6 +7,7 @@ import { addPost, loadPostAction } from '../../reducers/post';
 const etc = () => {
   const dispatch = useDispatch();
   const { mainPosts } = useSelector(state => state.post);
+  const { user } = useSelector(state => state.user);
   useEffect(() => {
     dispatch(loadPostAction({
       category: 'etc'
@@ -54,7 +55,10 @@ const etc = () => {
   return (
     <AppLayout>
         <Table columns={columns} dataSource={mainPosts} scroll={{ x: 1300 }} />
-        <Button><Link href="/common/etc/add"><a>글쓰기</a></Link></Button>
+        { user && user.data
+          ? <Button><Link href="/common/etc/add"><a>글쓰기</a></Link></Button>
+          : <Button><Link href="/login"><a>글쓰기</a></Link></Button>
+        }
     </AppLayout>
   );
 };

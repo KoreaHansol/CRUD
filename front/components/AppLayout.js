@@ -26,11 +26,19 @@ const AppLayout = ( { children } ) => {
                 menukey = 'sub1',
                 selectkey = '1'
                 return;
+            case '/common/notice/add':
+                menukey = 'sub1',
+                selectkey = '1'
+                return;
             case '/common/notice/[id]':
                 menukey = 'sub1',
                 selectkey = '1'
                 return;
             case '/common/etc':
+                menukey = 'sub1',
+                selectkey = '2' 
+                return;
+            case '/common/etc/add':
                 menukey = 'sub1',
                 selectkey = '2' 
                 return;
