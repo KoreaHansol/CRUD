@@ -16,7 +16,7 @@ router.post('/signup', async(req, res, next) => {
             }
         });
         if(userid || nickname) {
-            return res.status(403).send("이미 사용중인 아이디입니다.")
+            return res.status(403).send("이미 사용중인 아이디나 닉네임입니다.")
         }
         const password = await bcrypt.hash(req.body.password, 5);
         await User.create({

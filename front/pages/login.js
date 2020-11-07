@@ -11,12 +11,17 @@ const Login = () => {
     const [password, setpassword] = useInput('');
     const dispatch = useDispatch();
     const router = useRouter()
-    const { user } = useSelector(state => state.user);
+    const { user, loginError } = useSelector(state => state.user);
     useEffect(() => {
         if (user && user.data) {
           router.replace('/');
         }
       }, [user && user.data]);
+    useEffect(() => {
+      if (loginError) {
+          alert(loginError);
+      }
+      }, [loginError]);
     const onSubmit = useCallback(() => {
         dispatch(loginAction({
           userid,

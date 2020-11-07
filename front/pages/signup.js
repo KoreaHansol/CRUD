@@ -12,13 +12,18 @@ const SignUp = () => {
     const [userid, setid] = useInput('');
     const [password, setpassword] = useInput('');
     const dispatch = useDispatch();
-    const { user, signUpData } = useSelector(state => state.user);
+    const { user, signupError, signupSuccess } = useSelector(state => state.user);
     useEffect(() => {
         if (user && user.userid) {
             Router.replace('/');
-            alert(user.nickname + " 님 환영합니다.")
+            alert('회원가입 되셨습니다.');
         }
       }, [user && user.userid]);
+    useEffect(() => {
+    if (signupError) {
+        alert(signupError);
+    }
+    }, [signupError]);
     const onSubmit = useCallback(() => {
         if(validate()){
             dispatch(signUpAction({

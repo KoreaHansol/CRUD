@@ -17,6 +17,7 @@ export const initialState = {
   user: null,
   loginData: {},
   signUpData: null,
+  signupError: null,
 };
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
@@ -83,8 +84,8 @@ export const signUpAction = (data) => {
     .then(() => {
       dispatch(signUpSuccessAction(data));
     })
-    .catch(() => {
-      dispatch(signUpFailureAction())
+    .catch((err) => {
+      dispatch(signUpFailureAction(err.response.data))
     })
   }
 }
@@ -101,10 +102,10 @@ export const signUpSuccessAction = (data) => {
     data,
   };
 };
-export const signUpFailureAction = (data) => {
+export const signUpFailureAction = (err) => {
   return {
     type: SIGN_UP_FAILURE,
-    data,
+    err,
   };
 };
 
@@ -122,10 +123,10 @@ export const LoginSuccessAction = (data) => {
     data,
   };
 };
-export const LoginFailureAction = (data) => {
+export const LoginFailureAction = (err) => {
   return {
     type: LOG_IN_FAILURE,
-    data,
+    err,
   };
 };
 
@@ -168,8 +169,8 @@ export const loginAction = (data) => {
     .then((user) => {
       dispatch(LoginSuccessAction(user));
     })
-    .catch(() => {
-      dispatch(LoginFailureAction())
+    .catch((err) => {
+      dispatch(LoginFailureAction(err.response.data))
     })
   }
 }
@@ -226,18 +227,22 @@ export default (state = initialState, action) => {
         ...state,
         isloging: true,
         user: action.data,
+        signupError: null,
+        loginError: null,
       }
     }
     case LOG_IN_REQUEST: {
       return {
         ...state,
         isloging: true,
+        loginError: null,
       }
     }
     case LOG_IN_SUCCESS: {
       return {
         ...state,
         user: action.data,
+        loginError: null,
       }
     }
     case LOG_OUT_SUCCESS: {
@@ -247,18 +252,33 @@ export default (state = initialState, action) => {
         user: null,
       };
     }
+    case LOG_IN_FAILURE: {
+      return {
+        ...state,
+        loginError: action.err,
+      };
+    }
     case SIGN_UP_REQUEST: {
       return {
         ...state,
         user: action.data,
         signUpData: action.data,
+        signupError: null,
+      };
+    }
+    case SIGN_UP_FAILURE: {
+      return {
+        ...state,
+        signupError: action.err,
       };
     }
     case SIGN_UP_SUCCESS: {
       return {
         ...state,
         user: action.data,
+        signupSuccess: true,
         signUpData: null,
+        signupError: null,
       };
     }
     default: {
