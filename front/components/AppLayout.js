@@ -58,6 +58,18 @@ const AppLayout = ( { children } ) => {
                 menukey = 'sub2',
                 selectkey = '3'
                 return;
+            case '/programming/javascript':
+                menukey = 'sub3',
+                selectkey = '4' 
+                return;
+            case '/programming/javascript/add':
+                menukey = 'sub3',
+                selectkey = '4' 
+                return;
+            case '/programming/javascript/[id]':
+                menukey = 'sub3',
+                selectkey = '4'
+                return;
         }
     }
     return (
@@ -100,7 +112,7 @@ const AppLayout = ( { children } ) => {
                             <Menu.Item key="3"><Link href="/gallery/leagueoflegend"><a>리그오브레전드</a></Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub3" icon={<LaptopOutlined />} title="프로그래밍">
-                            <Menu.Item key="4">자바스크립트</Menu.Item>
+                            <Menu.Item key="4"><Link href="/programming/javascript"><a>자바스크립트</a></Link></Menu.Item>
                         </SubMenu>
                         </Menu>
                     </Sider>
