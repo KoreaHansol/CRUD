@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import AppLayout from '../../components/AppLayout';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Table } from 'antd';
+import { Button, Table, Typography } from 'antd';
 import Link from 'next/link';
 import { addPost, loadPostAction } from '../../reducers/post';
+import Head from 'next/head';
 const Notice = () => {
   const dispatch = useDispatch();
   const { mainPosts } = useSelector(state => state.post);
@@ -54,6 +55,10 @@ const Notice = () => {
   
   return (
     <AppLayout>
+      <Head>
+            <title>Board | 공지</title>
+        </Head>
+        <Typography.Title level={2}>공지</Typography.Title>
         <Table columns={columns} dataSource={mainPosts} scroll={{ x: 1300 }} />
         { user && user.data
           ? <Button><Link href="/common/notice/add"><a>글쓰기</a></Link></Button>

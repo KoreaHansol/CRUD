@@ -34,6 +34,46 @@ router.get('/:category/:postId', async (req, res) => {
     }
 })
 
+router.post('/:postId/update', async (req, res) => {
+    // console.log("asdasd",req.params)
+    try {
+        const post = await Post.update(
+            { 
+                title: req.body.title,
+                content:  req.body.content,
+            },
+            { 
+                where: { 
+                    id: req.params.postId
+                } 
+            }
+        );
+        const returnpost = await Post.findOne({
+            where: {
+                id: req.params.postId,
+            }
+        })
+        res.status(200).send(returnpost);
+    } catch(err) {
+        console.error(err);
+        next(err);
+    }
+})
+
+router.delete('/:postId/delete', async (req, res) => {
+    try {
+        await Post.destroy(
+            {
+                where: { id: req.params.postId }
+            }
+        );
+        res.status(200).send("삭제완료");
+    } catch(err) {
+        console.error(err);
+        next(err);
+    }
+})
+
 router.post('/', async(req, res, next) => {
     var query = "SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, 'id', Post.* FROM `Posts` AS `Post` ,(SELECT @ROWNUM := 0) R WHERE `Post`.`category` = :name ORDER BY `Post`.`createdAt` DESC"
     var values = {

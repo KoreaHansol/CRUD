@@ -22,6 +22,14 @@ export const initialState = {
   const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
   const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
   const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+  
+  const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
+  const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
+  const UPDATE_POST_FAILURE = 'UPDATE_POST_FAILURE';
+
+  const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
+  const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
+  const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
   export const addPostRequestAction = (data) => {
     return {
@@ -83,7 +91,7 @@ export const initialState = {
         dispatch(loadPostSuccessAction(posts.data));
       })
       .catch(() => {
-        dispatch(loadPostRequestAction())
+        dispatch(loadPostFailureAction())
       })
     }
   };
@@ -114,6 +122,7 @@ export const initialState = {
       dispatch(loadsinglePostRequestAction());
       axios.get(`/post/${data.category}/${data.id}`)
       .then((posts) => {
+        console.log(posts)
         dispatch(loadsinglePostSuccessAction(posts));
       })
       .catch(() => {
@@ -155,6 +164,75 @@ export const initialState = {
     }
   };
 
+  export const updatePostRequestAction = (data) => {
+    return {
+      type: UPDATE_POST_REQUEST,
+      data,
+    };
+  };
+  export const updatePostSuccessAction = (data) => {
+    return {
+      type: UPDATE_POST_SUCCESS,
+      data,
+    };
+  };
+  export const updatePostFailureAction = (data) => {
+    return {
+      type: UPDATE_POST_FAILURE,
+      data,
+    };
+  };
+  
+  export const updatePostAction = (data) => {
+    return (dispatch) => {
+      dispatch(updatePostRequestAction());
+      axios.post(`/post/${data.id}/update`, data)
+      .then((posts) => {
+        console.log(posts)
+        dispatch(updatePostSuccessAction(posts));
+      })
+      .catch(() => {
+        dispatch(updatePostFailureAction())
+      })
+    }
+  };
+
+ 
+
+
+  export const deletePostRequestAction = (data) => {
+    return {
+      type: DELETE_POST_REQUEST,
+      data,
+    };
+  };
+  export const deletePostSuccessAction = (data) => {
+    return {
+      type: DELETE_POST_SUCCESS,
+      data,
+    };
+  };
+  export const deletePostFailureAction = (data) => {
+    return {
+      type: DELETE_POST_FAILURE,
+      data,
+    };
+  };
+  
+  export const deletePostAction = (data) => {
+    return (dispatch) => {
+      dispatch(deletePostRequestAction());
+      axios.delete(`/post/${data.id}/delete`, data)
+      .then(() => {
+        console.log()
+        dispatch(deletePostSuccessAction());
+      })
+      .catch(() => {
+        dispatch(deletePostFailureAction())
+      })
+    }
+  };
+
 
   export const postLoaded = {
     type: POST_LOAD,
@@ -178,6 +256,7 @@ export const initialState = {
           ...state,
           mainPosts: action.data,
           postAdded: false,
+          postdelete: false,
         };
       }
       case ADD_POST_SUCCESS: {
@@ -185,18 +264,21 @@ export const initialState = {
           ...state,
           mainPosts: [action.data, ...state.mainPosts],
           postAdded: true,
+          postdelete: false,
         };
       }
       case ADD_POST_REQUEST: {
         return {
           ...state,
           postAdded: false,
+          postdelete: false,
         };
       }
       case ADD_POST_FAILURE: {
         return {
           ...state,
           postAdded: false,
+          postdelete: false,
           postAddError: action.err
         };
       }
@@ -204,6 +286,19 @@ export const initialState = {
         return {
           ...state,
           singlePost: action.data,
+          postdelete: false,
+        };
+      }
+      case UPDATE_POST_SUCCESS: {
+        return { //post
+          singlePost: {
+            ...state.singlePost,
+            data: {
+              ...state.singlePost.data,
+              title: action.data.data.title,
+              content: action.data.data.content
+            }
+          }
         };
       }
       case ADD_COMMENT_SUCCESS: {
@@ -215,6 +310,23 @@ export const initialState = {
               Comments: [action.data, ...state.singlePost.data.Comments]
             }
           }
+        };
+      }
+
+      case DELETE_POST_REQUEST: {
+        return { //post
+          ...state
+        };
+      }
+      case DELETE_POST_SUCCESS: {
+        return { //post
+         ...state,
+         postdelete: true,
+        };
+      }
+      case DELETE_POST_FAILURE: {
+        return { //post
+         ...state,
         };
       }
       default: {

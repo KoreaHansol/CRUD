@@ -22,7 +22,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, single, user, onUpdate,
     </Form.Item>
   </>
 );
-const noticeid = () => {
+const leagueoflegendid = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const { id } = router.query;
@@ -37,14 +37,14 @@ const noticeid = () => {
             dispatch(loadsinglePostAction(
               {
                 id,
-                category:'notice'
+                category:'leagueoflegend'
               }
             ));
     }, [id]);
     useEffect(() => {
       if(postdelete){
         alert("삭제완료")
-        router.replace('/common/notice')
+        router.replace('/gallery/leagueoflegend')
       }
     }, [postdelete]);
     const submitting = () => {
@@ -56,7 +56,7 @@ const noticeid = () => {
           id: singlePost.data.id,
           userid: user.data.id,
           content: value,
-          category: 'notice'
+          category: 'leagueoflegend'
         }));
         setValue('');
       } else {
@@ -159,4 +159,4 @@ const noticeid = () => {
   );
 };
 
-export default noticeid;
+export default leagueoflegendid;

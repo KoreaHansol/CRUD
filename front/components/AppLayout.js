@@ -46,6 +46,18 @@ const AppLayout = ( { children } ) => {
                 menukey = 'sub1',
                 selectkey = '2'
                 return;
+            case '/gallery/leagueoflegend':
+                menukey = 'sub2',
+                selectkey = '3' 
+                return;
+            case '/gallery/leagueoflegend/add':
+                menukey = 'sub2',
+                selectkey = '3' 
+                return;
+            case '/gallery/leagueoflegend/[id]':
+                menukey = 'sub2',
+                selectkey = '3'
+                return;
         }
     }
     return (

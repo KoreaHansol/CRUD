@@ -199,8 +199,8 @@ export const logoutAction = (data) => {
   return (dispatch) => {
     dispatch(logoutRequestAction());
     axios.post('/user/logout', data)
-    .then((user) => {
-      dispatch(logoutSuccessAction(user));
+    .then(() => {
+      dispatch(logoutSuccessAction());
     })
     .catch(() => {
       dispatch(logoutFailureAction())

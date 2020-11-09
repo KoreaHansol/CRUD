@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import AppLayout from '../../components/AppLayout';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Table } from 'antd';
+import { Button, Table, Typography } from 'antd';
 import Link from 'next/link';
+import Head from 'next/head';
 import { addPost, loadPostAction } from '../../reducers/post';
 const etc = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,10 @@ const etc = () => {
   
   return (
     <AppLayout>
+       <Head>
+            <title>Board | 기타</title>
+        </Head>
+        <Typography.Title level={2}>기타</Typography.Title>
         <Table columns={columns} dataSource={mainPosts} scroll={{ x: 1300 }} />
         { user && user.data
           ? <Button><Link href="/common/etc/add"><a>글쓰기</a></Link></Button>
