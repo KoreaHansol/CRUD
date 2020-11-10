@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
@@ -12,6 +12,7 @@ const { Header, Content, Sider } = Layout;
 const AppLayout = ( { children } ) => {
     const dispatch = useDispatch();
     const { isLoggedIn, user } = useSelector(state => state.user);
+    const { singlePost } = useSelector(state=>state.post)
     const router = useRouter()
     const onLogout = () => {
         dispatch(logoutAction());
@@ -20,6 +21,70 @@ const AppLayout = ( { children } ) => {
         dispatch(loadUserAction())
     },[])
     let menukey = 0, selectkey = 0;
+    const splitPathname = () => {
+        let split = router.pathname.split('/');
+        console.log(router.pathname)
+        for(let i = 0; i < split.length; i++) {
+            switch (split[i]) {
+                case 'common' : 
+                    split[i] = '공지사항'
+                break;
+                case 'notice' : 
+                    split[i] = '공지'
+                break;
+                case 'etc' : 
+                    split[i] = '기타'
+                break;
+                case 'common' : 
+                split[i] = '공지사항'
+                break;
+                case 'gallery' : 
+                    split[i] = '갤러리'
+                break;
+                case 'leagueoflegend' : 
+                    split[i] = '리그오브레전드'
+                break;
+                case 'programming' : 
+                    split[i] = '프로그래밍'
+                break;
+                case 'javascript' : 
+                    split[i] = '자바스크립트'
+                break;
+                case 'add' : 
+                    split[i] = '글쓰기'
+                break;
+                case 'profile' : 
+                    split[i] = '프로필'
+                break;
+                case '[id]' : 
+                    split[i] = '게시글'
+                break;
+                case '' : 
+                    split[0] = '홈'
+                break;
+            } 
+        }
+        console.log("split : ", split)
+        return (
+            <>
+                {
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+                        {split.map((v, i) => {
+                                return ( 
+                                    <Breadcrumb.Item>{v}</Breadcrumb.Item> 
+                                )
+                        })}
+                    </Breadcrumb>
+                    
+                }
+            </>
+        )
+        
+        // <Breadcrumb.Item>홈</Breadcrumb.Item>
+        // <Breadcrumb.Item>공지사항</Breadcrumb.Item>
+        // <Breadcrumb.Item>공지</Breadcrumb.Item>
+        
+    }
     const sidebarSetting = () => {
         switch (router.pathname) {
             case '/common/notice':
@@ -117,11 +182,7 @@ const AppLayout = ( { children } ) => {
                         </Menu>
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item>List</Breadcrumb.Item>
-                            <Breadcrumb.Item>App</Breadcrumb.Item>
-                        </Breadcrumb>
+                        {splitPathname()}
                         <Content
                             className="site-layout-background"
                             style={{
@@ -132,7 +193,7 @@ const AppLayout = ( { children } ) => {
                             >
                             <Row>
                                 <Col span={21}>{children}</Col>
-                                <Col span={3}>실시간 채팅</Col>
+                                <Col span={3}></Col>
                             </Row>
                         </Content>
                     </Layout>

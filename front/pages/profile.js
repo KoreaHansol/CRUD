@@ -55,7 +55,11 @@ const Profile = () => {
           }): null}
         </Descriptions.Item>
         <Descriptions.Item label="나의 댓글" span={3}>
-          
+          {user&&user.data&&user.data.Comments ? user.data.Comments.map((v, i)=> {
+            return (
+              <div>{(i+1)+'번째 댓글 : ' + v.content}</div>
+            )
+          }): null}
         </Descriptions.Item>
       </Descriptions>
     </AppLayout>

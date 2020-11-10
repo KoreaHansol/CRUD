@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const passport = require('passport')
-const { User, Post } = require('../models');
+const { User, Post, Comment } = require('../models');
 const router = express.Router();
 router.post('/signup', async(req, res, next) => {
     try {
@@ -90,10 +90,17 @@ router.get('/', async (req, res) => {
         {
             const user = await User.findOne({
                 where: { id: req.user.id },
-                include: [{
-                    model: Post,
-                    attributes: ['id', 'title'],
-                },]
+                include: [
+                    {
+                        model: Post,
+                        attributes: ['id', 'title'],
+                    },
+                    {
+                        model: Comment,
+                        attributes: ['id', 'content'],
+                    },
+                ]
+                
             });
             res.status(200).json(user);
         } else {
