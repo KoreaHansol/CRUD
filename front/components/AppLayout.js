@@ -67,16 +67,13 @@ const AppLayout = ( { children } ) => {
         console.log("split : ", split)
         return (
             <>
-                {
-                    <Breadcrumb style={{ margin: '16px 0' }}>
+                {<Breadcrumb style={{ margin: '16px 0' }}>
                         {split.map((v, i) => {
                                 return ( 
                                     <Breadcrumb.Item>{v}</Breadcrumb.Item> 
                                 )
                         })}
-                    </Breadcrumb>
-                    
-                }
+                    </Breadcrumb>}
             </>
         )
         

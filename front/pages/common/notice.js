@@ -60,9 +60,8 @@ const Notice = () => {
         </Head>
         <Typography.Title level={2}>공지</Typography.Title>
         <Table columns={columns} dataSource={mainPosts} scroll={{ x: 1300 }} />
-        { user && user.data
-          ? <Button><Link href="/common/notice/add"><a>글쓰기</a></Link></Button>
-          : <Button><Link href="/login"><a>글쓰기</a></Link></Button>
+        { user && user.data && user.data.nickname === 'admin'
+          && <Button><Link href="/common/notice/add"><a>글쓰기</a></Link></Button>
         }
     </AppLayout>
   );

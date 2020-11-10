@@ -213,6 +213,7 @@ export default (state = initialState, action) => {
     case NICK_CHANGE_SUCCESS : {
       return {
         ...state,
+        nickchangeError: false,
         user: {
           ...state,
           data: {
@@ -222,12 +223,19 @@ export default (state = initialState, action) => {
         },
       }
     }
+    case LOAD_USER_REQUEST: {
+      return {
+        ...state,
+        nickchangeError: false,
+      }
+    }
     case LOAD_USER_SUCCESS: {
       return {
         ...state,
         isloging: true,
         user: action.data,
         signupError: null,
+        nickchangeError: false,
         loginError: null,
       }
     }
@@ -279,6 +287,18 @@ export default (state = initialState, action) => {
         signupSuccess: true,
         signUpData: null,
         signupError: null,
+      };
+    }
+    case NICK_CHANGE_REQUEST: {
+      return {
+        ...state,
+        nickchangeError: false,
+      };
+    }
+    case NICK_CHANGE_FAILURE: {
+      return {
+        ...state,
+        nickchangeError: true,
       };
     }
     default: {

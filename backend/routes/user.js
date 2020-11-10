@@ -69,6 +69,14 @@ router.post('/logout', (req, res) => {
 
 router.post('/nickchange', async (req, res, next) => {
     try {
+        const nickname = await User.findOne({
+            where: {
+                nickname: req.body.nickname,
+            }
+        });
+        if(nickname) {
+            return res.status(403).send("이미 사용중인 닉네임입니다.")
+        }
         await User.update(
             { 
                 nickname: req.body.nickname 

@@ -6,16 +6,16 @@ import AppLayout from '../components/AppLayout';
 import { Descriptions, Badge, Button, Typography, Input } from 'antd';
 import { nicknameChangeAction } from '../reducers/user';
 const Profile = () => {
-  const { user } = useSelector(state => state.user);
+  const { user, nickchangeError } = useSelector(state => state.user);
   const [nickchange, setnickchange] = useState(false);
   const [nickname, setnickname] = useState('');
   const [err,seterr] = useState(false);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (!user) {
-  //     Router.replace('/');
-  //   }
-  // }, [user])
+  useEffect(() => {
+    if (nickchangeError) {
+      alert('이미 등록된 닉네임입니다')
+    }
+  }, [nickchangeError])
   const changeNickname = (e) => {
     if(!err)
       setnickchange(!nickchange);
