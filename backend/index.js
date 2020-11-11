@@ -23,8 +23,13 @@ app.use(cookieParser())
 app.use(session({
     saveUninitialized: false,
     resave: false,
-    secret: 'secret'
-}))
+    secret: 'secret',
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      domain: '.k-hansol.com'
+    },
+  }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
