@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = "http://localhost:3061"
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '' : "http://localhost:3061";
 axios.defaults.withCredentials = true;
 export const initialState = {
 

@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "next -p 3060",
-    "build": "next build",
-    "start": "next start"
+    "build": "cross-env NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production next start -p 3060"
   },
   "author": "Hansol",
   "license": "ISC",
   "dependencies": {
     "antd": "^4.6.6",
+    "cross-env": "^7.0.2",
     "next": "^9.5.4",
     "next-redux-wrapper": "^6.0.2",
     "prop-types": "^15.7.2",
