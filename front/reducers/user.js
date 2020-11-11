@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://52.79.236.184';
+axios.defaults.baseURL = 'http://52.79.236.184:81';
 axios.defaults.withCredentials = true;
 const dummyUser = {
   id: 1,
