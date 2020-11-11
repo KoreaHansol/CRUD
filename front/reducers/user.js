@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://52.79.236.184' : "http://localhost:3061";
+axios.defaults.baseURL = 'http://52.79.236.184:80';
 axios.defaults.withCredentials = true;
 const dummyUser = {
   id: 1,
