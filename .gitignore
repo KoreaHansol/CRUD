@@ -1,8 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
-### JetBrains template
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -135,8 +130,8 @@ typings/
 # Serverless directories
 .serverless
 /front/build/
-react-nodebird.pem
-react-nodebird-aws.pem
+board.pem
+board-aws.pem
 node_modules
 .env
 .next
