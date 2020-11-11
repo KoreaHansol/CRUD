@@ -8,7 +8,7 @@ const userRouter = require('./routes/user');
 const postRouter = require('./routes/post')
 const passport = require('passport');
 const app = express();
-const PORT = 80;
+const PORT = 81;
 db.sequelize.sync()
 .then(() => {
     console.log("db accsess")
@@ -28,7 +28,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
-    origin: ['http://localgost:3060','http://54.180.122.199'],
+    origin: 'http://54.180.122.199',
     credentials: true,
 }));
 app.use('/user', userRouter);
