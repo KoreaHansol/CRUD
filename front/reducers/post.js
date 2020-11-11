@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = 'http://52.79.236.184:80'
+axios.defaults.baseURL = 'http://52.79.236.184'
 axios.defaults.withCredentials = true;
 export const initialState = {
 
