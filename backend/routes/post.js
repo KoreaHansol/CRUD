@@ -54,7 +54,7 @@ router.get('/:category/:postId', async (req, res) => {
 })
 
 router.post('/:postId/update', async (req, res) => {
-    const time = new Date().toFormat('YYYY-MM-DD HH24:MI')
+    const time = new Date().toFormat('YYYY-MM-DD HH24:MI:SS')
     try {
         const post = await Post.update(
             { 
@@ -121,7 +121,7 @@ router.post('/', async(req, res, next) => {
 
 router.post('/add', async(req, res, next) => {
     try {
-        const time = new Date().toFormat('YYYY-MM-DD HH24:MI')
+        const time = new Date().toFormat('YYYY-MM-DD HH24:MI:SS')
         const user = await User.findOne({
             where : { userid: req.body.userid }
         })
