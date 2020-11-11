@@ -28,7 +28,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
-    origin: 'http://localhost:3060',
+    origin: ['http://localgost:3060','http://54.180.122.199'],
     credentials: true,
 }));
 app.use('/user', userRouter);
