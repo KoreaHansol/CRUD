@@ -40,16 +40,10 @@ const etc = () => {
       key: 'updatedAt',
     },
     {
-      title: '조회',
-      width: 100,
-      dataIndex: 'update',
-      key: 'update',
-    },
-    {
-      title: '추천',
-      width: 100,
-      dataIndex: 'update',
-      key: 'update',
+      title: '조회수',
+      width: 80,
+      dataIndex: 'view',
+      key: 'view',
     },
   ];
   

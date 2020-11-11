@@ -3,12 +3,31 @@ const bcrypt = require('bcrypt');
 const passport = require('passport')
 const Sequelize = require('sequelize');
 const { User, Post, Comment } = require('../models');
+const date = require('date-utils')
 
 const router = express.Router();
 
 router.get('/:category/:postId', async (req, res) => {
     // console.log("asdasd",req.params)
     try {
+        const views = await Post.findOne({
+            where: { 
+                id: req.params.postId,
+                category: req.params.category
+            },
+            attributes: ['view']
+        })
+        await Post.update(
+            { 
+                view: views.dataValues.view + 1
+            },
+            { 
+                where: { 
+                    id: req.params.postId,
+                    category: req.params.category
+                },
+            }
+        );
         const post = await Post.findOne({
             where: { 
                 id: req.params.postId,
@@ -35,12 +54,14 @@ router.get('/:category/:postId', async (req, res) => {
 })
 
 router.post('/:postId/update', async (req, res) => {
-    // console.log("asdasd",req.params)
+    const time = new Date().toFormat('YYYY-MM-DD HH24:MI')
     try {
         const post = await Post.update(
             { 
                 title: req.body.title,
                 content:  req.body.content,
+                createdAt: time,
+                updatedAt: time,
             },
             { 
                 where: { 
@@ -100,6 +121,7 @@ router.post('/', async(req, res, next) => {
 
 router.post('/add', async(req, res, next) => {
     try {
+        const time = new Date().toFormat('YYYY-MM-DD HH24:MI')
         const user = await User.findOne({
             where : { userid: req.body.userid }
         })
@@ -108,7 +130,9 @@ router.post('/add', async(req, res, next) => {
             content: req.body.content.text,
             category: req.body.content.category,
             UserId: user.id,
-            nickname: req.body.nickname
+            nickname: req.body.nickname,
+            createdAt: time,
+            updatedAt: time,
         })
        return res.status(200).json(post)
     } catch (err) {
