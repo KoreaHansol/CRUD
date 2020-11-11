@@ -14,10 +14,19 @@ db.sequelize.sync()
     console.log("db accsess")
 })
 .catch(console.error);
-app.use(cors({
-    origin: 'http://k-hansol.com',
-    credentials: true,
-}));
+// app.use(cors({
+//     origin: 'http://k-hansol.com',
+//     credentials: true,
+// }));
+router.use(function(req, res, next) {
+    var dt = new Date();
+    var d = dt.toFormat("YYYY-MM-DD HH24:MI:SS");
+    console.log("date = ", d);
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    next();
+});
 passportConfig();
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }))
