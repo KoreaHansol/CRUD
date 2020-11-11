@@ -28,7 +28,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
-    origin: 'http://54.180.122.199',
+    origin: 'http://k-hansol.com',
     credentials: true,
 }));
 app.use('/user', userRouter);
