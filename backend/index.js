@@ -14,8 +14,11 @@ db.sequelize.sync()
     console.log("db accsess")
 })
 .catch(console.error);
+app.use(cors({
+    origin: 'http://k-hansol.com',
+    credentials: true,
+}));
 passportConfig();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }))
 app.use(cookieParser())
@@ -32,10 +35,6 @@ app.use(session({
   }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({
-    origin: 'http://k-hansol.com',
-    credentials: true,
-}));
 app.use('/user', userRouter);
 app.use('/post', postRouter);
 app.listen(PORT, () => {
