@@ -53,7 +53,7 @@ const Login = () => {
             </div>
             <div>
                 <Typography.Title level={4} style={{ marginTop: 10 }}>회원이 아니라면</Typography.Title>
-                <Button><Link href="/login"><a>회원가입</a></Link></Button>
+                <Button><Link href="/signup"><a>회원가입</a></Link></Button>
             </div>
         </Form>
     </AppLayout>
