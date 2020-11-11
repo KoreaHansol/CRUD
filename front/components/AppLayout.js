@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
@@ -11,8 +11,7 @@ const { Header, Content, Sider } = Layout;
 
 const AppLayout = ( { children } ) => {
     const dispatch = useDispatch();
-    const { isLoggedIn, user } = useSelector(state => state.user);
-    const { singlePost } = useSelector(state=>state.post)
+    const { user } = useSelector(state => state.user);
     const router = useRouter()
     const onLogout = () => {
         dispatch(logoutAction());
@@ -55,6 +54,12 @@ const AppLayout = ( { children } ) => {
                 break;
                 case 'profile' : 
                     split[i] = '프로필'
+                break;
+                case 'signup' : 
+                    split[i] = '회원가입'
+                break;
+                case 'login' : 
+                    split[i] = '로그인'
                 break;
                 case '[id]' : 
                     split[i] = '게시글'

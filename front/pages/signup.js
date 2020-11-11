@@ -63,6 +63,7 @@ const SignUp = () => {
         </Head>
         <Form onFinish={onSubmit} style={{ width: '30vw' }}>
             <Typography.Title level={2}>회원가입</Typography.Title>
+            <Typography.Title level={4} style={{color:'red'}}>모두 5글자 이상 10글자 이하로 작성해주세요.</Typography.Title>
             <div>
                 <label htmlFor="user-id">아이디</label>
                 <br />

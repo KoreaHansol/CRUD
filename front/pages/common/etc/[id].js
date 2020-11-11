@@ -1,10 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import AppLayout from '../../../components/AppLayout'
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCommentAction, deletePostAction, loadsinglePostAction, updatePostAction } from '../../../reducers/post';
-import { Descriptions, Comment, Avatar, Form, Button, List, Input, Tooltip } from 'antd';
+import { Descriptions, Comment, Form, Button, Input } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
 const Editor = ({ onChange, onSubmit, submitting, value, single, user, onUpdate, onDelete, update, onUpdateSuccess }) => (

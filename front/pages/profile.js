@@ -25,7 +25,7 @@ const Profile = () => {
   }
   const nickvaluechange = (e) => {
     setnickname(e.target.value);
-    if(e.target.value.length < 5) {
+    if(e.target.value.length < 5 || e.target.value.length > 10) {
       seterr(true)
     } else {
       seterr(false)
@@ -33,6 +33,7 @@ const Profile = () => {
   }
   const cancle = () => {
     setnickchange(!nickchange);
+    seterr(false)
   }
   return (
     <AppLayout>
@@ -45,7 +46,7 @@ const Profile = () => {
         {!nickchange && user ? <span>{user&&user.data ? user.data.nickname : '로그인하세요'}</span> : <Input value={nickname} onChange={nickvaluechange}/>}
         {nickchange && <Button style={{float:"right"}} onClick={cancle}>취소</Button>}
         {user&&user.data && <Button style={{float:"right"}} onClick={changeNickname}>{!nickchange ? '수정하기' : '완료'}</Button>}
-        {err && <div style={{ color : 'red' }}>닉네임을 5글자 이상으로 설정해주세요</div>}
+        {err && <div style={{ color : 'red' }}>닉네임을 5글자 이상, 10글자 이하로 설정해주세요</div>}
       </Descriptions.Item>
         <Descriptions.Item label="나의 게시글" span={3}>
           {user&&user.data&&user.data.Posts ? user.data.Posts.map((v, i)=> {

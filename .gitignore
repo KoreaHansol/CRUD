@@ -131,7 +131,6 @@ typings/
 .serverless
 /front/build/
 board.pem
-board-aws.pem
 node_modules
 .env
 .next
