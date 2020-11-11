@@ -15,7 +15,7 @@ db.sequelize.sync()
 })
 .catch(console.error);
 app.use(cors({
-    origin: 'http://k-hansol.com',
+    origin: 'http://15.164.202.87',
     credentials: true,
 }));
 passportConfig();
