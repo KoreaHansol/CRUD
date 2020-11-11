@@ -8,7 +8,7 @@ const userRouter = require('./routes/user');
 const postRouter = require('./routes/post')
 const passport = require('passport');
 const app = express();
-const PORT = 3061;
+const PORT = 80;
 db.sequelize.sync()
 .then(() => {
     console.log("db accsess")
